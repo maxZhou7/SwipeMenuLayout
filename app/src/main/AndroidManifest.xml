@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="mcxtzhang.listswipemenudemo">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -14,7 +13,8 @@
         </activity>
         <activity android:name="mcxtzhang.swipedelmenu.ListViewDelDemoActivity">
         </activity>
-        <activity android:name="mcxtzhang.swipedelmenu.LauncherActivity">
+        <activity android:name="mcxtzhang.swipedelmenu.LauncherActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
