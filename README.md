@@ -1,6 +1,6 @@
 # SwipeDelMenuLayout
 
-[![](https://jitpack.io/v/mcxtzhang/SwipeDelMenuLayout.svg)](https://jitpack.io/#mcxtzhang/SwipeDelMenuLayout)
+[![](https://jitpack.io/v/maxZhou7/SwipeMenuLayout.svg)](https://jitpack.io/#maxZhou7/SwipeMenuLayout)
 
 **适用于任意 ViewGroup 的侧滑删除菜单控件**，不依赖 RecyclerView 也不依赖 ListView，0 耦合。
 
@@ -33,11 +33,11 @@ dependencyResolutionManagement {
 
 ### Step 2. 添加依赖
 
-**最新版本：[![](https://jitpack.io/v/mcxtzhang/SwipeDelMenuLayout.svg)](https://jitpack.io/#mcxtzhang/SwipeDelMenuLayout)**
+**最新版本：[![](https://jitpack.io/v/maxZhou7/SwipeMenuLayout.svg)](https://jitpack.io/#maxZhou7/SwipeMenuLayout)**
 
 ```kotlin
 dependencies {
-    implementation("com.github.mcxtzhang:SwipeDelMenuLayout:2.0.0")
+    implementation("com.github.maxZhou7:SwipeMenuLayout:2.0.0")
 }
 ```
 
@@ -45,10 +45,10 @@ dependencies {
 
 ```toml
 [versions]
-swipe-del-menu = "2.0.0"
+swipe-menu-layout = "2.0.0"
 
 [libraries]
-swipe-del-menu = { group = "com.github.mcxtzhang", name = "SwipeDelMenuLayout", version.ref = "swipe-del-menu" }
+swipe-menu-layout = { group = "com.github.maxZhou7", name = "SwipeMenuLayout", version.ref = "swipe-menu-layout" }
 ```
 
 ---
