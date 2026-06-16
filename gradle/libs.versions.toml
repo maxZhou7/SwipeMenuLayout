@@ -1,0 +1,22 @@
+[versions]
+agp = "8.11.1"
+kotlin = "2.0.21"
+appcompat = "1.7.0"
+recyclerview = "1.3.2"
+swiperefreshlayout = "1.1.0"
+viewpager = "1.0.0"
+junit = "4.13.2"
+all-base-adapter = "V1.5.2"
+
+[libraries]
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+androidx-viewpager = { group = "androidx.viewpager", name = "viewpager", version.ref = "viewpager" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+all-base-adapter = { group = "com.github.mcxtzhang", name = "all-base-adapter", version.ref = "all-base-adapter" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
