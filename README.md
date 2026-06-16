@@ -10,6 +10,8 @@
 - 与 ViewPager 联动（内置 `CstViewPager` 解决滑动冲突）
 - Ktolin 实现，对 Java 调用完全兼容
 
+> 项目原出处：[https://github.com/mcxtzhang/SwipeDelMenuLayout](https://github.com/mcxtzhang/SwipeDelMenuLayout)
+
 ---
 
 ## 效果预览
