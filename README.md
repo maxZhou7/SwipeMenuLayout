@@ -14,18 +14,6 @@
 
 ---
 
-## 效果预览
-
-| iOS 阻塞式交互 | Android 非阻塞式交互 |
-|---|---|
-| ![](https://github.com/mcxtzhang/SwipeDelMenuLayout/blob/master/gif/iOS.gif) | ![](https://github.com/mcxtzhang/SwipeDelMenuLayout/blob/master/gif/LinearLayoutManager1.gif) |
-
-| LinearLayout | ViewPager |
-|---|---|
-| ![](https://github.com/mcxtzhang/SwipeDelMenuLayout/blob/master/gif/linear.gif) | ![](https://github.com/mcxtzhang/SwipeDelMenuLayout/blob/master/gif/viewpager.gif) |
-
----
-
 ## 引入
 
 ### Step 1. 添加 JitPack 仓库
