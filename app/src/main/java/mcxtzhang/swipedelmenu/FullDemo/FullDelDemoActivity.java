@@ -5,8 +5,6 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import com.mcxtzhang.swipemenulib.SwipeMenuLayout;
@@ -68,27 +66,15 @@ public class FullDelDemoActivity extends Activity {
             }
         });
         mRv.setAdapter(mAdapter);
-        mRv.setLayoutManager(mLayoutManager = new GridLayoutManager(this, 2));
+        mRv.setLayoutManager(mLayoutManager = new GridLayoutManager(this, 1));
 
-        //6 2016 10 21 add , 增加viewChache 的 get()方法，
-        // 可以用在：当点击外部空白处时，关闭正在展开的侧滑菜单。我个人觉得意义不大，
-        mRv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    SwipeMenuLayout viewCache = SwipeMenuLayout.getViewCache();
-                    if (null != viewCache) {
-                        viewCache.smoothClose();
-                    }
-                }
-                return false;
-            }
-        });
+        // 点击外部空白区域时，关闭正在展开的侧滑菜单
+        mRv.setOnTouchListener(SwipeMenuLayout.makeOuterTouchListener());
     }
 
     private void initDatas() {
         mDatas = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 5; i++) {
             mDatas.add(new SwipeBean("" + i));
         }
     }

@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -145,18 +144,7 @@ public class FullDemoFragment extends Fragment {
 
         //6 2016 10 21 add , 增加viewChache 的 get()方法，
         // 可以用在：当点击外部空白处时，关闭正在展开的侧滑菜单。我个人觉得意义不大，
-        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    SwipeMenuLayout viewCache = SwipeMenuLayout.getViewCache();
-                    if (null != viewCache) {
-                        viewCache.smoothClose();
-                    }
-                }
-                return false;
-            }
-        });
+        mRecyclerView.setOnTouchListener(SwipeMenuLayout.makeOuterTouchListener());
 
         return inflate;
     }

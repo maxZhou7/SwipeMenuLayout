@@ -98,6 +98,11 @@ public class SwipeMenuLayout extends ViewGroup {
     private boolean iosInterceptFlag;//IOS类型下，是否拦截事件的flag
 
     /**
+     * 当有另一个侧滑菜单正在关闭时，拦截其他View的触摸事件，实现"优先收起"的效果
+     */
+    private static volatile boolean sIsAnotherMenuClosing = false;
+
+    /**
      * 20160929add 左滑右滑的开关,默认左滑打开菜单
      */
     private boolean isLeftSwipe;
@@ -165,6 +170,25 @@ public class SwipeMenuLayout extends ViewGroup {
      */
     public static SwipeMenuLayout getViewCache() {
         return mViewCache;
+    }
+
+    /**
+     * 给外层容器（RecyclerView/ListView/ScrollView等）设置触摸监听，
+     * 实现点击空白区域自动关闭展开的侧滑菜单。
+     * 用法：parentView.setOnTouchListener(SwipeMenuLayout.makeOuterTouchListener());
+     */
+    public static View.OnTouchListener makeOuterTouchListener() {
+        return new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (mViewCache != null) {
+                        mViewCache.smoothClose();
+                    }
+                }
+                return false;
+            }
+        };
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -328,8 +352,6 @@ public class SwipeMenuLayout extends ViewGroup {
                     if (mViewCache != null) {
                         if (mViewCache != this) {
                             mViewCache.smoothClose();
-
-                            iosInterceptFlag = isIos;//add by 2016 09 11 ，IOS模式开启的话，且当前有侧滑菜单的View，且不是自己的，就该拦截事件咯。
                         }
                         //只要有一个侧滑菜单处于打开状态， 就不给外层布局上下滑动了
                         getParent().requestDisallowInterceptTouchEvent(true);
@@ -485,6 +507,10 @@ public class SwipeMenuLayout extends ViewGroup {
                 //IOS模式开启，且当前有菜单的View，且不是自己的 拦截点击事件给子View
                 return true;
             }
+            //add 2026: 当另一个菜单正在关闭动画中，拦截所有触摸事件，实现"优先收起"
+            if (sIsAnotherMenuClosing) {
+                return true;
+            }
         }
         return super.onInterceptTouchEvent(ev);
     }
@@ -532,6 +558,8 @@ public class SwipeMenuLayout extends ViewGroup {
     private void cancelAnim() {
         if (mCloseAnim != null && mCloseAnim.isRunning()) {
             mCloseAnim.cancel();
+            // 安全兜底：如果关闭动画被取消，清除拦截标志，避免事件永久被拦截
+            sIsAnotherMenuClosing = false;
         }
         if (mExpandAnim != null && mExpandAnim.isRunning()) {
             mExpandAnim.cancel();
@@ -546,6 +574,9 @@ public class SwipeMenuLayout extends ViewGroup {
 /*        mScroller.startScroll(getScrollX(), 0, -getScrollX(), 0);
         invalidate();*/
         mViewCache = null;
+
+        // 关闭动画期间拦截所有其他触摸事件，实现"优先收起"效果
+        sIsAnotherMenuClosing = true;
 
         //2016 11 13 add 侧滑菜单展开，屏蔽content长按
         if (null != mContentView) {
@@ -565,7 +596,8 @@ public class SwipeMenuLayout extends ViewGroup {
             @Override
             public void onAnimationEnd(Animator animation) {
                 isExpand = false;
-
+                // 关闭动画结束，清除拦截标志，恢复事件响应
+                sIsAnotherMenuClosing = false;
             }
         });
         mCloseAnim.setDuration(300).start();
